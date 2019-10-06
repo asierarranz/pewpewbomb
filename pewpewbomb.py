@@ -60,7 +60,7 @@ def displayBombs():
             bomblink=100
             gameover=True
         # Bomb blinking function     
-        if loop%(int(100.0/bomblink*3)): # *3 defines the increase in the blinking speed
+        if loop%(int(100.0/bomblink*1.5)): # *3 defines the increase in the blinking speed
             screen.pixel(bombposx[bi-1], bombposy[bi-1], 0)
         else:
             screen.pixel(bombposx[bi-1], bombposy[bi-1], 1)
@@ -89,18 +89,19 @@ while True:
         bombposx=[]
         bombposy=[]
         bombposcycle=[]
-
+        pew.tick(1/40) # Wait 2.5 secs
         # Sad game over face
-        screen = pew.Pix.from_iter((
-        (1, 1, 1, 1, 1, 1, 1, 1),
-        (1, 3, 1, 1, 1, 1, 1, 3),
-        (1, 1, 1, 1, 1, 1, 1, 1),
-        (1, 1, 1, 1, 2, 1, 1, 1),
-        (1, 1, 1, 1, 3, 1, 1, 1),
-        (1, 1, 1, 1, 1, 1, 1, 1),
-        (1, 1, 3, 3, 3, 3, 3, 1),
-        (1, 3, 1, 1, 1, 1, 1, 3),))
-        pew.show(screen)
+        if waitGameover==100:            
+            screen = pew.Pix.from_iter((
+            (1, 1, 1, 1, 1, 1, 1, 1),
+            (1, 3, 1, 1, 1, 1, 1, 3),
+            (1, 1, 1, 1, 1, 1, 1, 1),
+            (1, 1, 1, 1, 2, 1, 1, 1),
+            (1, 1, 1, 1, 3, 1, 1, 1),
+            (1, 1, 1, 1, 1, 1, 1, 1),
+            (1, 1, 3, 3, 3, 3, 3, 1),
+            (1, 3, 1, 1, 1, 1, 1, 3),))
+            pew.show(screen)
         waitGameover=waitGameover-1
 
         # Clears screen
@@ -108,9 +109,9 @@ while True:
             gameover=False
             screen = pew.Pix.from_iter(((0, 0, 0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0, 0, 0),))
             levelshow=True
-
     # Levels screen        
     if levelshow:
+        pew.tick(1/30)
         #This algorith draws the "levels tringle", highlighting the current level
         it=0
         for x in range(0,8):
@@ -203,7 +204,7 @@ while True:
         displayBombs()
 
         # The random placement algorithm, increases placing rate
-        if random.randint(1,1000)>990-(level*level):
+        if random.randint(1,1000)>990-(level*2):
             placeBomb()
 
         # Player position
